@@ -3,16 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="全国34个省级行政区近3000所普通高校官网一站式导航，提供录取分数、招生路径、职业薪资等多元信息。">
 <meta name="theme-color" content="#0f172a">
-<title>中国大学官网导航 · 全国高校一站式入口</title>
+<title>高校导航 · 中国大学官网导航</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 /* ============================================================
-   设计令牌（Design Tokens）
+   设计令牌（与主页面保持一致）
    ============================================================ */
 :root {
-  /* 浅色主题 */
   --bg:              #f6f7f9;
   --bg-elev:         #ffffff;
   --bg-sunken:       #eef1f5;
@@ -32,24 +30,9 @@
   --danger:          #dc2626;
   --cyan:            #0891b2;
   --gold:            #b45309;
-
-  /* 侧边栏（深色恒定） */
-  --side-bg:         #0f172a;
-  --side-bg-hover:   #1c2740;
-  --side-bg-active:  #1d4ed8;
-  --side-text:       #b6c2d4;
-  --side-text-hi:    #ffffff;
-  --side-border:     #1e293b;
-  --side-mute:       #64748b;
-
-  /* 尺寸 */
-  --side-w:          264px;
   --header-h:        64px;
-
-  /* 过渡 */
   --t:               160ms cubic-bezier(.4,0,.2,1);
 }
-
 [data-theme="dark"] {
   --bg:              #0b0e14;
   --bg-elev:         #12161f;
@@ -63,35 +46,19 @@
   --accent:          #4f8cf7;
   --accent-hover:    #6ba0ff;
   --accent-soft:     #16233b;
-  --accent-text:     #ffffff;
   --success:         #34d399;
   --warn:            #fb923c;
   --purple:          #a78bfa;
   --danger:          #f87171;
   --cyan:            #22d3ee;
   --gold:            #fbbf24;
-
-  --side-bg:         #060910;
-  --side-bg-hover:   #131c2b;
-  --side-bg-active:  #2563eb;
-  --side-text:       #94a3b8;
-  --side-text-hi:    #ffffff;
-  --side-border:     #182030;
-  --side-mute:       #4b5666;
 }
 
-/* ============================================================
-   重置
-   ============================================================ */
 *, *::before, *::after {
   margin: 0; padding: 0; box-sizing: border-box;
-  border-radius: 0 !important; /* 全局禁用圆角 */
+  border-radius: 0 !important;
 }
-html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-}
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei",
                "Segoe UI", "Helvetica Neue", Arial, sans-serif;
@@ -104,18 +71,14 @@ body {
   min-height: 100vh;
 }
 a { color: inherit; text-decoration: none; }
-button, input, select { font: inherit; color: inherit; }
-img { max-width: 100%; display: block; }
+button, input { font: inherit; color: inherit; }
 ::selection { background: var(--accent); color: var(--accent-text); }
-
-/* 滚动条 */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg-sunken); }
 ::-webkit-scrollbar-thumb { background: var(--border-strong); border: 2px solid var(--bg-sunken); }
-::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
 
 /* ============================================================
-   顶部操作栏（固定）
+   顶栏
    ============================================================ */
 .topbar {
   position: fixed;
@@ -130,14 +93,11 @@ img { max-width: 100%; display: block; }
   padding: 0 20px;
   transition: background var(--t), border-color var(--t);
 }
-
-.topbar-left,
-.topbar-right {
+.topbar-left, .topbar-right {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-
 .brand {
   display: flex;
   align-items: center;
@@ -145,28 +105,28 @@ img { max-width: 100%; display: block; }
   font-size: 15px;
   font-weight: 700;
   letter-spacing: .3px;
-  color: var(--text);
 }
-.brand .brand-mark {
+.brand-mark {
   width: 30px; height: 30px;
   display: flex; align-items: center; justify-content: center;
   background: var(--accent);
   color: var(--accent-text);
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 800;
-  letter-spacing: -0.5px;
+  letter-spacing: 0;
+  flex-shrink: 0;
 }
-.brand .brand-sub {
-  font-size: 11px;
-  font-weight: 400;
+.brand-text { color: var(--text); }
+.brand-text .sub {
   color: var(--text-dim);
+  font-weight: 400;
+  font-size: 12px;
   letter-spacing: .5px;
   padding-left: 10px;
   border-left: 1px solid var(--border);
   margin-left: 2px;
 }
 
-/* 通用图标按钮 */
 .icon-btn {
   width: 38px; height: 38px;
   display: flex; align-items: center; justify-content: center;
@@ -176,7 +136,7 @@ img { max-width: 100%; display: block; }
   cursor: pointer;
   transition: background var(--t), color var(--t), border-color var(--t);
   font-size: 16px;
-  position: relative;
+  flex-shrink: 0;
 }
 .icon-btn:hover {
   background: var(--bg-hover);
@@ -186,174 +146,51 @@ img { max-width: 100%; display: block; }
 .icon-btn:active { transform: translateY(1px); }
 .icon-btn svg { width: 18px; height: 18px; }
 
-/* 深浅模式切换按钮 */
-.theme-toggle .icon-sun,
-.theme-toggle .icon-moon { transition: opacity var(--t), transform var(--t); }
-[data-theme="light"] .theme-toggle .icon-moon { display: none; }
-[data-theme="dark"]  .theme-toggle .icon-sun  { display: none; }
+.theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun  { display: none; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 
 /* ============================================================
-   侧边栏
+   主体
    ============================================================ */
-.sidebar-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,.5);
-  z-index: 950;
-  opacity: 0; pointer-events: none;
-  transition: opacity var(--t);
-}
-.sidebar-overlay.active { opacity: 1; pointer-events: auto; }
-
-.sidebar {
-  position: fixed;
-  top: var(--header-h); left: 0; bottom: 0;
-  width: var(--side-w);
-  background: var(--side-bg);
-  border-right: 1px solid var(--side-border);
-  z-index: 960;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(-100%);
-  transition: transform var(--t);
-  overflow: hidden;
-}
-.sidebar.active { transform: translateX(0); }
-
-.sidebar-head {
-  padding: 20px 20px 16px;
-  border-bottom: 1px solid var(--side-border);
-}
-.sidebar-head .title {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.6px;
-  color: var(--side-mute);
-  text-transform: uppercase;
-}
-.sidebar-head .subtitle {
-  margin-top: 6px;
-  font-size: 13px;
-  color: var(--side-text);
-  line-height: 1.5;
-}
-
-.sidebar-nav {
-  flex: 1;
-  overflow-y: auto;
-  padding: 12px 12px 20px;
-}
-.sidebar-nav::-webkit-scrollbar { width: 6px; }
-.sidebar-nav::-webkit-scrollbar-thumb { background: var(--side-border); border: none; }
-
-.nav-section {
-  font-size: 10.5px;
-  letter-spacing: 1.5px;
-  color: var(--side-mute);
-  text-transform: uppercase;
-  padding: 16px 10px 8px;
-  font-weight: 700;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 11px 12px;
-  color: var(--side-text);
-  font-size: 14px;
-  cursor: pointer;
-  user-select: none;
-  transition: background var(--t), color var(--t);
-  border-left: 2px solid transparent;
-  margin-bottom: 1px;
-}
-.nav-item:hover {
-  background: var(--side-bg-hover);
-  color: var(--side-text-hi);
-}
-.nav-item.active {
-  background: var(--side-bg-active);
-  color: var(--side-text-hi);
-  border-left-color: var(--side-text-hi);
-  font-weight: 600;
-}
-.nav-item .nav-icon {
-  width: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  flex-shrink: 0;
-}
-.nav-item .nav-text { flex: 1; }
-.nav-item .nav-badge {
-  font-size: 10.5px;
-  font-weight: 600;
-  padding: 2px 7px;
-  background: rgba(255,255,255,.1);
-  color: var(--side-text-hi);
-  letter-spacing: .3px;
-}
-.nav-item.active .nav-badge {
-  background: rgba(255,255,255,.22);
-}
-
-.sidebar-foot {
-  padding: 16px 20px;
-  border-top: 1px solid var(--side-border);
-  font-size: 11.5px;
-  color: var(--side-mute);
-  line-height: 1.7;
-}
-.sidebar-foot b { color: var(--side-text); font-weight: 600; }
-
-/* ============================================================
-   主内容区
-   ============================================================ */
-.main {
+main {
   padding-top: var(--header-h);
-  min-height: 100vh;
-  transition: margin-left var(--t);
-}
-.main.shifted { margin-left: var(--side-w); }
-
-.panel { display: none; }
-.panel.active { display: block; animation: fade .22s ease-out; }
-@keyframes fade {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  min-height: calc(100vh - var(--header-h));
 }
 
-/* ============================================================
-   面板 1：Hero + 省份总览
-   ============================================================ */
-.hero {
+/* 省份头图 */
+.province-hero {
   background: var(--bg-elev);
   border-bottom: 1px solid var(--border);
-  padding: 56px 24px 48px;
+  padding: 48px 24px 36px;
   position: relative;
   overflow: hidden;
 }
-.hero-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-.hero::before {
+.province-hero::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
     linear-gradient(var(--border) 1px, transparent 1px),
     linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: .18;
-  mask-image: radial-gradient(ellipse at top left, #000 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse at top left, #000 20%, transparent 70%);
+  background-size: 36px 36px;
+  opacity: .16;
+  mask-image: radial-gradient(ellipse at top left, #000 15%, transparent 65%);
+  -webkit-mask-image: radial-gradient(ellipse at top left, #000 15%, transparent 65%);
   pointer-events: none;
 }
-.hero-eyebrow {
+.province-hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.province-hero .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -365,54 +202,80 @@ img { max-width: 100%; display: block; }
   padding: 5px 10px;
   border: 1px solid var(--accent);
   background: var(--accent-soft);
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
-.hero h1 {
-  font-size: clamp(24px, 4vw, 40px);
+.province-hero h1 {
+  font-size: clamp(26px, 4vw, 40px);
   font-weight: 800;
-  line-height: 1.15;
   letter-spacing: -.5px;
-  margin-bottom: 12px;
+  line-height: 1.15;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
-.hero-desc {
-  font-size: 15px;
+.province-hero h1 .emoji {
+  font-size: .85em;
+  line-height: 1;
+}
+.province-hero .hero-desc {
+  font-size: 14.5px;
   color: var(--text-mute);
-  max-width: 640px;
-  margin-bottom: 28px;
+  margin-top: 10px;
 }
 
-.hero-stats {
+.province-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
-  margin-bottom: 28px;
-  max-width: 720px;
+  min-width: 280px;
+  flex: 0 1 auto;
 }
-.hero-stat {
+.province-stat {
   background: var(--bg-elev);
-  padding: 16px 18px;
+  padding: 12px 16px;
+  text-align: center;
 }
-.hero-stat .num {
-  font-size: 22px;
+.province-stat .num {
+  font-size: 20px;
   font-weight: 800;
-  color: var(--text);
+  color: var(--accent);
   letter-spacing: -.5px;
-  line-height: 1.2;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
 }
-.hero-stat .num b { color: var(--accent); font-weight: 800; }
-.hero-stat .lbl {
-  font-size: 11.5px;
-  letter-spacing: .6px;
+.province-stat .lbl {
+  font-size: 10.5px;
   color: var(--text-dim);
+  letter-spacing: .8px;
   text-transform: uppercase;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
-.search-bar {
+/* 筛选栏 */
+.filter-bar {
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+  position: sticky;
+  top: var(--header-h);
+  z-index: 80;
+  transition: background var(--t), border-color var(--t);
+}
+.filter-bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
-  max-width: 620px;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.search-bar {
+  flex: 1;
+  min-width: 220px;
+  max-width: 460px;
+  display: flex;
   border: 1px solid var(--border-strong);
   background: var(--bg-elev);
   transition: border-color var(--t), box-shadow var(--t);
@@ -423,178 +286,94 @@ img { max-width: 100%; display: block; }
 }
 .search-bar input {
   flex: 1;
-  padding: 13px 16px;
+  padding: 10px 14px;
   border: none;
   background: transparent;
   outline: none;
-  font-size: 15px;
+  font-size: 14.5px;
   color: var(--text);
   min-width: 0;
 }
 .search-bar input::placeholder { color: var(--text-dim); }
 .search-bar button {
-  padding: 0 22px;
+  padding: 0 18px;
   border: none;
   background: var(--accent);
   color: var(--accent-text);
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13.5px;
   letter-spacing: .5px;
   cursor: pointer;
   transition: background var(--t);
-  white-space: nowrap;
 }
 .search-bar button:hover { background: var(--accent-hover); }
 
-/* ============================================================
-   通用面板容器
-   ============================================================ */
-.panel-wrap {
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  padding: 6px 14px;
+  font-size: 13px;
+  letter-spacing: .3px;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-mute);
+  cursor: pointer;
+  transition: all var(--t);
+  user-select: none;
+}
+.chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+.chip .cnt {
+  font-size: 11px;
+  opacity: .7;
+  margin-left: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 内容区 */
+.content-wrap {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 24px 72px;
+  padding: 28px 24px 72px;
 }
-
-.panel-head {
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 28px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.panel-head-left h2 {
-  font-size: clamp(20px, 3vw, 26px);
-  font-weight: 800;
-  letter-spacing: -.3px;
-  color: var(--text);
+.result-info {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-.panel-head-left h2 .accent-line {
-  display: inline-block;
-  width: 4px; height: 22px;
-  background: var(--accent);
-}
-.panel-head-left p {
-  margin-top: 8px;
-  font-size: 13.5px;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  margin-bottom: 18px;
+  font-size: 13px;
   color: var(--text-mute);
-  max-width: 640px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
-.panel-head-right {
+.result-info b {
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.result-info .right {
   font-size: 12.5px;
   color: var(--text-dim);
-  letter-spacing: .3px;
 }
 
-/* ============================================================
-   地区分组
-   ============================================================ */
-.region-group { margin-bottom: 48px; }
-.region-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 20px;
-}
-.region-head h3 {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: .8px;
-  text-transform: uppercase;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.region-head h3::before {
-  content: "";
-  width: 3px; height: 14px;
-  background: var(--accent);
-  display: inline-block;
-}
-.region-head .meta {
-  font-size: 12px;
-  color: var(--text-dim);
-  letter-spacing: .3px;
-}
-
-/* ============================================================
-   省份卡片（区块网格）
-   ============================================================ */
-.province-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-}
-.province-card {
-  background: var(--bg-elev);
-  padding: 20px 18px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: relative;
-  transition: background var(--t);
-  cursor: pointer;
-}
-.province-card::after {
-  content: "";
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: var(--accent);
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform var(--t);
-}
-.province-card:hover {
-  background: var(--bg-hover);
-}
-.province-card:hover::after { transform: scaleY(1); }
-.province-card .row1 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.province-card .emoji { font-size: 20px; line-height: 1; }
-.province-card .arrow {
-  color: var(--text-dim);
-  font-size: 14px;
-  transition: transform var(--t), color var(--t);
-}
-.province-card:hover .arrow {
-  color: var(--accent);
-  transform: translateX(3px);
-}
-.province-card .pname {
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: .2px;
-  color: var(--text);
-}
-.province-card .pcount {
-  font-size: 12px;
-  color: var(--text-dim);
-  letter-spacing: .3px;
-}
-.province-card .pcount b {
-  color: var(--accent);
-  font-weight: 700;
-  font-size: 13px;
-  margin-right: 2px;
-}
-
-/* ============================================================
-   学校卡片
-   ============================================================ */
+/* 学校网格 */
 .school-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -611,10 +390,25 @@ img { max-width: 100%; display: block; }
   display: flex;
   flex-direction: column;
   gap: 8px;
-  min-height: 76px;
+  min-height: 80px;
+}
+.school-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform var(--t);
 }
 .school-card:hover { background: var(--bg-hover); }
+.school-card:hover::before { transform: scaleY(1); }
 .school-card:hover .sname { color: var(--accent); }
+.school-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
 .school-card .sname {
   font-size: 14.5px;
   font-weight: 600;
@@ -623,18 +417,17 @@ img { max-width: 100%; display: block; }
   transition: color var(--t);
   letter-spacing: .1px;
 }
+.school-card .sname mark {
+  background: rgba(29,78,216,.18);
+  color: var(--accent);
+  padding: 0 2px;
+}
 .school-card .smeta {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   align-items: center;
   margin-top: auto;
-}
-.school-card .province-tag {
-  font-size: 11px;
-  color: var(--text-dim);
-  letter-spacing: .3px;
-  margin-left: auto;
 }
 
 /* 标签 */
@@ -646,383 +439,16 @@ img { max-width: 100%; display: block; }
   padding: 2px 6px;
   background: var(--accent-soft);
   color: var(--accent);
-  border: 1px solid transparent;
   white-space: nowrap;
 }
 .tag.t-zhuanke { background: rgba(22,163,74,.1);  color: var(--success); }
 .tag.t-minban  { background: rgba(234,88,12,.1);  color: var(--warn); }
 .tag.t-gaozhi  { background: rgba(124,58,237,.1); color: var(--purple); }
-.tag.t-qiangji { background: rgba(220,38,38,.1);  color: var(--danger); }
-.tag.t-zongping{ background: rgba(8,145,178,.1);  color: var(--cyan); }
-.tag.t-qiye    { background: rgba(180,83,9,.1);   color: var(--gold); }
 [data-theme="dark"] .tag.t-zhuanke { background: rgba(52,211,153,.12); }
 [data-theme="dark"] .tag.t-minban  { background: rgba(251,146,60,.12); }
 [data-theme="dark"] .tag.t-gaozhi  { background: rgba(167,139,250,.12); }
-[data-theme="dark"] .tag.t-qiangji { background: rgba(248,113,113,.12); }
-[data-theme="dark"] .tag.t-zongping{ background: rgba(34,211,238,.12); }
-[data-theme="dark"] .tag.t-qiye    { background: rgba(251,191,36,.14); }
 
-/* ============================================================
-   搜索结果标题条
-   ============================================================ */
-.result-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 18px;
-  background: var(--bg-elev);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
-  margin-bottom: 20px;
-  font-size: 13.5px;
-  color: var(--text-mute);
-}
-.result-bar b {
-  color: var(--accent);
-  font-weight: 800;
-  font-size: 15px;
-}
-.result-bar .kw {
-  color: var(--text);
-  font-weight: 600;
-  padding: 2px 8px;
-  background: var(--bg-sunken);
-  border: 1px solid var(--border);
-}
-
-/* ============================================================
-   学科卡片
-   ============================================================ */
-.subject-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-}
-.subject-card {
-  background: var(--bg-elev);
-  padding: 22px 22px 20px;
-  transition: background var(--t);
-}
-.subject-card:hover { background: var(--bg-hover); }
-.subject-card .subj-head {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 14px;
-}
-.subject-card .subj-emoji {
-  font-size: 20px;
-  line-height: 1;
-}
-.subject-card .subj-name {
-  font-size: 15.5px;
-  font-weight: 700;
-  letter-spacing: .2px;
-  color: var(--text);
-}
-.subject-card .subj-count {
-  margin-left: auto;
-  font-size: 11.5px;
-  color: var(--text-dim);
-  letter-spacing: .3px;
-}
-.subject-card .subj-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.subject-card .pill {
-  font-size: 12px;
-  color: var(--text-mute);
-  padding: 3px 9px;
-  background: var(--bg-sunken);
-  border: 1px solid var(--border);
-  cursor: pointer;
-  transition: all var(--t);
-  letter-spacing: .2px;
-}
-.subject-card .pill:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-soft);
-}
-.subject-card .pill.more {
-  color: var(--text-dim);
-  cursor: default;
-}
-.subject-card .pill.more:hover {
-  border-color: var(--border);
-  color: var(--text-dim);
-  background: var(--bg-sunken);
-}
-
-/* ============================================================
-   招生路径
-   ============================================================ */
-.path-block { margin-bottom: 48px; }
-.path-head {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 20px 22px;
-  background: var(--bg-elev);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
-  margin-bottom: 1px;
-}
-.path-head .path-icon {
-  font-size: 24px;
-  line-height: 1;
-  flex-shrink: 0;
-}
-.path-head .path-name {
-  font-size: 17px;
-  font-weight: 800;
-  letter-spacing: .2px;
-  color: var(--text);
-  margin-bottom: 4px;
-}
-.path-head .path-desc {
-  font-size: 13px;
-  color: var(--text-mute);
-  line-height: 1.6;
-}
-.path-head .path-count {
-  margin-left: auto;
-  font-size: 12px;
-  color: var(--text-dim);
-  white-space: nowrap;
-  letter-spacing: .3px;
-  padding-top: 4px;
-}
-
-/* ============================================================
-   校企对接
-   ============================================================ */
-.program-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-}
-.program-card {
-  background: var(--bg-elev);
-  padding: 22px;
-  transition: background var(--t);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.program-card:hover { background: var(--bg-hover); }
-.program-card .pc-title {
-  font-size: 15.5px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: .2px;
-  line-height: 1.35;
-}
-.program-card .pc-row {
-  display: flex;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--text-mute);
-  line-height: 1.6;
-}
-.program-card .pc-row .lbl {
-  flex-shrink: 0;
-  width: 60px;
-  color: var(--text-dim);
-  font-size: 12px;
-  letter-spacing: .5px;
-  padding-top: 1px;
-}
-.program-card .pc-row .val {
-  color: var(--text);
-  font-weight: 500;
-}
-.program-card .pc-row .val.link {
-  color: var(--accent);
-  cursor: pointer;
-  font-weight: 600;
-}
-.program-card .pc-row .val.link:hover { text-decoration: underline; }
-.program-card .pc-desc {
-  font-size: 12.5px;
-  color: var(--text-mute);
-  padding-top: 12px;
-  border-top: 1px dashed var(--border);
-  line-height: 1.7;
-}
-
-/* ============================================================
-   数据详情
-   ============================================================ */
-.select-wrap {
-  position: relative;
-  max-width: 460px;
-  margin-bottom: 28px;
-}
-.select-wrap select {
-  width: 100%;
-  padding: 13px 42px 13px 16px;
-  border: 1px solid var(--border-strong);
-  background: var(--bg-elev);
-  color: var(--text);
-  font-size: 14.5px;
-  outline: none;
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-  transition: border-color var(--t), box-shadow var(--t);
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--text-mute) 50%),
-    linear-gradient(135deg, var(--text-mute) 50%, transparent 50%);
-  background-position:
-    calc(100% - 18px) calc(50% + 2px),
-    calc(100% - 13px) calc(50% + 2px);
-  background-size: 5px 5px, 5px 5px;
-  background-repeat: no-repeat;
-}
-.select-wrap select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
-}
-
-.detail-card {
-  background: var(--bg-elev);
-  border: 1px solid var(--border);
-  padding: 26px;
-}
-.detail-head {
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 22px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.detail-head h3 {
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -.3px;
-  margin-bottom: 6px;
-}
-.detail-head .sub {
-  font-size: 13px;
-  color: var(--text-mute);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.detail-head .sub .dot {
-  width: 3px; height: 3px;
-  background: var(--text-dim);
-  display: inline-block;
-}
-.chart-wrap {
-  position: relative;
-  height: 360px;
-  margin-top: 8px;
-}
-@media (max-width: 640px) {
-  .chart-wrap { height: 280px; }
-}
-
-/* ============================================================
-   薪资排行
-   ============================================================ */
-.salary-chart-wrap {
-  background: var(--bg-elev);
-  border: 1px solid var(--border);
-  padding: 26px;
-  margin-bottom: 28px;
-}
-.salary-chart-wrap h4 {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: .4px;
-  color: var(--text);
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 20px;
-  text-transform: uppercase;
-}
-.salary-chart-wrap h4 .lbl-cn {
-  text-transform: none;
-  font-size: 14.5px;
-  letter-spacing: .2px;
-  margin-left: 8px;
-}
-.salary-chart-canvas { position: relative; height: 460px; }
-@media (max-width: 640px) {
-  .salary-chart-canvas { height: 520px; }
-}
-
-.salary-table-wrap {
-  border: 1px solid var(--border);
-  overflow-x: auto;
-  background: var(--bg-elev);
-}
-.salary-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13.5px;
-  min-width: 560px;
-}
-.salary-table thead th {
-  background: var(--bg-sunken);
-  color: var(--text-mute);
-  font-size: 11.5px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-weight: 700;
-  padding: 14px 18px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-}
-.salary-table tbody td {
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text);
-}
-.salary-table tbody tr:last-child td { border-bottom: none; }
-.salary-table tbody tr { transition: background var(--t); }
-.salary-table tbody tr:hover { background: var(--bg-hover); }
-.salary-table .rank {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 26px; height: 22px;
-  font-size: 12px;
-  font-weight: 700;
-  background: var(--bg-sunken);
-  color: var(--text-mute);
-  border: 1px solid var(--border);
-  letter-spacing: 0;
-  padding: 0 6px;
-}
-.salary-table .rank.top1 { background: #d97706; color: #fff; border-color: #d97706; }
-.salary-table .rank.top2 { background: #64748b; color: #fff; border-color: #64748b; }
-.salary-table .rank.top3 { background: #b45309; color: #fff; border-color: #b45309; }
-.salary-table .num-col { font-variant-numeric: tabular-nums; }
-.salary-table .salary-val {
-  font-weight: 700;
-  color: var(--text);
-}
-.salary-table .salary-val.accent { color: var(--accent); }
-
-/* ============================================================
-   占位符
-   ============================================================ */
+/* 空状态 */
 .empty-state {
   text-align: center;
   padding: 72px 24px;
@@ -1043,18 +469,59 @@ img { max-width: 100%; display: block; }
   color: var(--text-dim);
   margin-top: 8px;
 }
-.empty-state code {
-  background: var(--bg-sunken);
-  border: 1px solid var(--border);
-  padding: 1px 6px;
-  font-size: 12px;
-  color: var(--accent);
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+
+/* 页脚 */
+.footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg-elev);
+  padding: 26px 24px;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  letter-spacing: .2px;
+}
+.footer-inner a { color: var(--text-mute); border-bottom: 1px solid transparent; transition: all var(--t); }
+.footer-inner a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* 回到顶部 */
+.back-top {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 42px; height: 42px;
+  background: var(--bg-elev);
+  color: var(--text-mute);
+  border: 1px solid var(--border-strong);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 90;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: all var(--t);
+}
+.back-top.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.back-top:hover {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
 }
 
-/* ============================================================
-   弹窗
-   ============================================================ */
+/* 弹窗 */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -1067,6 +534,10 @@ img { max-width: 100%; display: block; }
   backdrop-filter: blur(2px);
 }
 .modal-overlay.active { display: flex; animation: fade .2s; }
+@keyframes fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 .modal {
   background: var(--bg-elev);
   border: 1px solid var(--border-strong);
@@ -1149,7 +620,6 @@ img { max-width: 100%; display: block; }
   border-color: var(--accent);
   color: var(--accent);
 }
-
 .modal-data {
   border-top: 1px solid var(--border);
   padding-top: 20px;
@@ -1194,179 +664,70 @@ img { max-width: 100%; display: block; }
 }
 
 /* ============================================================
-   Footer
-   ============================================================ */
-.footer {
-  border-top: 1px solid var(--border);
-  background: var(--bg-elev);
-  padding: 32px 24px;
-  margin-top: auto;
-}
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  font-size: 12.5px;
-  color: var(--text-dim);
-  letter-spacing: .2px;
-}
-.footer-inner a {
-  color: var(--text-mute);
-  border-bottom: 1px solid transparent;
-  transition: all var(--t);
-}
-.footer-inner a:hover {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-}
-
-/* 回到顶部 */
-.back-top {
-  position: fixed;
-  right: 22px;
-  bottom: 22px;
-  width: 42px; height: 42px;
-  background: var(--bg-elev);
-  color: var(--text-mute);
-  border: 1px solid var(--border-strong);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 90;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(8px);
-  transition: all var(--t);
-  font-size: 15px;
-}
-.back-top.show {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-.back-top:hover {
-  background: var(--accent);
-  color: var(--accent-text);
-  border-color: var(--accent);
-}
-
-/* ============================================================
    响应式
    ============================================================ */
-
-/* iPad / 中等屏 */
-@media (max-width: 1024px) {
-  .main.shifted { margin-left: 0; }
-  .sidebar {
-    box-shadow: 20px 0 60px rgba(0,0,0,.3);
-    border-right: none;
-  }
-}
-
-/* 手机 */
 @media (max-width: 640px) {
-  :root {
-    --header-h: 58px;
-  }
+  :root { --header-h: 58px; }
   .topbar { padding: 0 14px; }
-  .brand .brand-sub { display: none; }
+  .brand-text .sub { display: none; }
   .brand { font-size: 14.5px; }
-  .brand .brand-mark { width: 26px; height: 26px; font-size: 13px; }
+  .brand-mark { width: 26px; height: 26px; font-size: 11px; }
 
-  .hero { padding: 36px 18px 32px; }
-  .hero h1 { font-size: 24px; }
-  .hero-desc { font-size: 13.5px; margin-bottom: 20px; }
-  .hero-stats { grid-template-columns: repeat(2, 1fr); }
-  .hero-stat { padding: 12px 14px; }
-  .hero-stat .num { font-size: 18px; }
-  .hero-stat .lbl { font-size: 10.5px; }
-  .search-bar input { padding: 11px 14px; font-size: 14.5px; }
-  .search-bar button { padding: 0 16px; font-size: 13.5px; }
+  .province-hero { padding: 32px 16px 26px; }
+  .province-hero-inner { flex-direction: column; align-items: stretch; gap: 20px; }
+  .province-hero h1 { font-size: 24px; }
+  .province-hero .hero-desc { font-size: 13px; }
+  .province-stats { min-width: 0; width: 100%; grid-template-columns: repeat(3, 1fr); }
 
-  .panel-wrap { padding: 28px 16px 56px; }
-  .panel-head { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .panel-head-left h2 { font-size: 20px; }
-  .panel-head-left p { font-size: 12.5px; }
-
-  .province-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .province-card { padding: 14px 14px 12px; gap: 6px; }
-  .province-card .emoji { font-size: 17px; }
-  .province-card .pname { font-size: 14.5px; }
-  .province-card .pcount { font-size: 11.5px; }
-  .province-card .pcount b { font-size: 12.5px; }
+  .filter-bar { padding: 12px 16px; }
+  .search-bar { max-width: 100%; min-width: 0; }
+  .content-wrap { padding: 20px 16px 48px; }
 
   .school-grid { grid-template-columns: 1fr; }
-  .subject-grid { grid-template-columns: 1fr; }
-  .program-grid { grid-template-columns: 1fr; }
-
-  .result-bar { padding: 12px 14px; font-size: 12.5px; flex-wrap: wrap; gap: 6px; }
-  .result-bar b { font-size: 14px; }
-
-  .detail-card { padding: 18px 16px; }
-  .detail-head h3 { font-size: 17px; }
-
-  .salary-chart-wrap { padding: 18px 14px; }
-  .salary-table { font-size: 12.5px; min-width: 480px; }
-  .salary-table thead th { padding: 11px 12px; font-size: 10.5px; }
-  .salary-table tbody td { padding: 11px 12px; }
+  .school-card { padding: 14px 16px; min-height: 72px; }
 
   .modal { padding: 24px 20px 22px; }
   .modal h3 { font-size: 18px; }
   .modal-data-list { grid-template-columns: repeat(2, 1fr); }
-  .modal-data-item .val { font-size: 16px; }
-
-  .footer-inner { flex-direction: column; text-align: center; gap: 10px; font-size: 12px; }
+  .footer-inner { flex-direction: column; text-align: center; }
   .back-top { right: 14px; bottom: 14px; width: 38px; height: 38px; }
 }
 
-/* 小屏 iPad 竖屏 */
-@media (min-width: 641px) and (max-width: 834px) {
-  .province-grid { grid-template-columns: repeat(3, 1fr); }
+@media (min-width: 641px) and (max-width: 1024px) {
   .school-grid { grid-template-columns: repeat(2, 1fr); }
-  .subject-grid { grid-template-columns: repeat(2, 1fr); }
-  .program-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* 大屏 */
 @media (min-width: 1440px) {
-  .panel-wrap { max-width: 1320px; }
-  .hero-inner { max-width: 1320px; }
-  .province-grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+  .content-wrap, .province-hero-inner, .footer-inner, .filter-bar-inner { max-width: 1320px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ============ 顶部操作栏 ============ -->
+<!-- 顶栏 -->
 <header class="topbar">
   <div class="topbar-left">
-    <button class="icon-btn" id="menuBtn" title="菜单" aria-label="打开菜单">
+    <a class="icon-btn" href="index.html" title="返回首页" aria-label="返回首页">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <line x1="3" y1="12" x2="21" y2="12"/>
-        <line x1="3" y1="18" x2="21" y2="18"/>
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12 19 5 12 12 5"/>
       </svg>
-    </button>
+    </a>
     <div class="brand">
-      <span class="brand-mark">CN</span>
-      中国大学官网导航
-      <span class="brand-sub">UNIVERSITY INDEX</span>
+      <span class="brand-mark" id="provinceMark">--</span>
+      <span class="brand-text" id="provinceTitle">
+        加载中
+        <span class="sub">UNIVERSITY LIST</span>
+      </span>
     </div>
   </div>
   <div class="topbar-right">
     <button class="icon-btn theme-toggle" id="themeBtn" title="切换深浅模式" aria-label="切换深浅模式">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
         <circle cx="12" cy="12" r="4"/>
-        <line x1="12" y1="2"  x2="12" y2="5"/>
+        <line x1="12" y1="2" x2="12" y2="5"/>
         <line x1="12" y1="19" x2="12" y2="22"/>
-        <line x1="2"  y1="12" x2="5"  y2="12"/>
+        <line x1="2" y1="12" x2="5" y2="12"/>
         <line x1="19" y1="12" x2="22" y2="12"/>
         <line x1="4.9" y1="4.9" x2="7" y2="7"/>
         <line x1="17" y1="17" x2="19.1" y2="19.1"/>
@@ -1380,202 +741,46 @@ img { max-width: 100%; display: block; }
   </div>
 </header>
 
-<!-- ============ 侧边栏 ============ -->
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-head">
-    <div class="title">导航面板</div>
-    <div class="subtitle">全国高校信息一站式入口</div>
+<main>
+  <section class="province-hero">
+    <div class="province-hero-inner">
+      <div>
+        <div class="eyebrow" id="heroEyebrow">PROVINCE · 高校导航</div>
+        <h1>
+          <span class="emoji" id="heroEmoji">🏫</span>
+          <span id="heroName">加载中…</span>
+        </h1>
+        <p class="hero-desc" id="heroDesc">正在读取数据…</p>
+      </div>
+      <div class="province-stats" id="heroStats"></div>
+    </div>
+  </section>
+
+  <section class="filter-bar">
+    <div class="filter-bar-inner">
+      <div class="search-bar">
+        <input type="text" id="kw" placeholder="搜索本省学校名称…" autocomplete="off">
+        <button id="searchBtn">搜索</button>
+      </div>
+      <div class="chips" id="chips"></div>
+    </div>
+  </section>
+
+  <div class="content-wrap">
+    <div class="result-info" id="resultInfo" style="display:none;"></div>
+    <div class="school-grid" id="schoolList"></div>
+    <div id="emptyBox" style="display:none;"></div>
   </div>
-  <nav class="sidebar-nav" id="sidebarNav">
-    <div class="nav-section">探索</div>
-    <a class="nav-item active" data-panel="panel-home">
-      <span class="nav-icon">🏫</span>
-      <span class="nav-text">大学官网直入</span>
-      <span class="nav-badge">2900+</span>
-    </a>
-    <a class="nav-item" data-panel="panel-subject">
-      <span class="nav-icon">📚</span>
-      <span class="nav-text">强项学科分类</span>
-    </a>
-    <a class="nav-item" data-panel="panel-admission">
-      <span class="nav-icon">📋</span>
-      <span class="nav-text">招生路径分类</span>
-    </a>
-    <a class="nav-item" data-panel="panel-special">
-      <span class="nav-icon">🏢</span>
-      <span class="nav-text">校企对接特色</span>
-    </a>
-
-    <div class="nav-section">数据</div>
-    <a class="nav-item" data-panel="panel-detail">
-      <span class="nav-icon">📈</span>
-      <span class="nav-text">大学录取数据</span>
-    </a>
-    <a class="nav-item" data-panel="panel-salary">
-      <span class="nav-icon">💰</span>
-      <span class="nav-text">职业薪资排行</span>
-    </a>
-
-    <div class="nav-section">收藏</div>
-    <a class="nav-item" data-panel="panel-other">
-      <span class="nav-icon">🔗</span>
-      <span class="nav-text">其它网站</span>
-    </a>
-  </nav>
-  <div class="sidebar-foot">
-    <b>数据来源</b> · 教育部 / 人社部<br>
-    截至 2025 年 6 月 · 仅供学习交流
-  </div>
-</aside>
-
-<!-- ============ 主内容 ============ -->
-<div class="main" id="main">
-
-  <!-- 面板 1：大学官网直入 -->
-  <section class="panel active" id="panel-home">
-    <div class="hero">
-      <div class="hero-inner">
-        <div class="hero-eyebrow">CHINA UNIVERSITY INDEX</div>
-        <h1>中国大学官网导航</h1>
-        <p class="hero-desc">
-          收录全国 34 个省级行政区、近 3000 所普通高校官方网站入口，
-          按地区、学科、招生路径多维分类，一站直达。
-        </p>
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <div class="num"><b>2919</b></div>
-            <div class="lbl">普通高校</div>
-          </div>
-          <div class="hero-stat">
-            <div class="num"><b>1365</b></div>
-            <div class="lbl">本科院校</div>
-          </div>
-          <div class="hero-stat">
-            <div class="num"><b>1554</b></div>
-            <div class="lbl">高职专科</div>
-          </div>
-          <div class="hero-stat">
-            <div class="num"><b>147</b></div>
-            <div class="lbl">双一流</div>
-          </div>
-        </div>
-        <div class="search-bar">
-          <input type="text" id="kw" placeholder="搜索学校名称或省份 · 如「内蒙古大学」「北京」" autocomplete="off">
-          <button id="searchBtn">搜索</button>
-        </div>
-      </div>
-    </div>
-    <div class="panel-wrap" id="homeContent"></div>
-  </section>
-
-  <!-- 面板 2：强项学科 -->
-  <section class="panel" id="panel-subject">
-    <div class="panel-wrap">
-      <div class="panel-head">
-        <div class="panel-head-left">
-          <h2><span class="accent-line"></span>强项学科分类</h2>
-          <p>基于教育部第五轮学科评估 A+ 学科整理，点击校名可查看详情与录取数据。</p>
-        </div>
-      </div>
-      <div id="subjectContent"></div>
-    </div>
-  </section>
-
-  <!-- 面板 3：招生路径 -->
-  <section class="panel" id="panel-admission">
-    <div class="panel-wrap">
-      <div class="panel-head">
-        <div class="panel-head-left">
-          <h2><span class="accent-line"></span>招生路径分类</h2>
-          <p>强基计划 · 综合评价 · 专项计划 · 订单班，按不同招生渠道分类汇总。</p>
-        </div>
-      </div>
-      <div id="admissionContent"></div>
-    </div>
-  </section>
-
-  <!-- 面板 4：校企对接 -->
-  <section class="panel" id="panel-special">
-    <div class="panel-wrap">
-      <div class="panel-head">
-        <div class="panel-head-left">
-          <h2><span class="accent-line"></span>校企对接特色</h2>
-          <p>订单班、产业学院、定向培养等入学即就业的直通路径。</p>
-        </div>
-      </div>
-      <div id="specialContent"></div>
-    </div>
-  </section>
-
-  <!-- 面板 5：其它网站 -->
-  <section class="panel" id="panel-other">
-    <div class="panel-wrap">
-      <div class="panel-head">
-        <div class="panel-head-left">
-          <h2><span class="accent-line"></span>其它网站</h2>
-          <p>常用高考资讯、查分、志愿填报工具入口。</p>
-        </div>
-      </div>
-      <div id="otherContent"></div>
-    </div>
-  </section>
-
-  <!-- 面板 6：录取数据 -->
-  <section class="panel" id="panel-detail">
-    <div class="panel-wrap">
-      <div class="panel-head">
-        <div class="panel-head-left">
-          <h2><span class="accent-line"></span>大学录取数据</h2>
-          <p>选择一所大学，查看近五年录取最低分变化与招生人数趋势。</p>
-        </div>
-      </div>
-      <div class="select-wrap">
-        <select id="univSelect">
-          <option value="">— 选择大学 —</option>
-        </select>
-      </div>
-      <div id="detailContent">
-        <div class="empty-state">
-          <span class="emoji">📈</span>
-          请从上方选择一所大学查看录取数据
-          <div class="hint">数据可在 <code>data.js</code> 的 <code>SCORE_HISTORY</code> 中补充</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 面板 7：薪资排行 -->
-  <section class="panel" id="panel-salary">
-    <div class="panel-wrap">
-      <div class="panel-head">
-        <div class="panel-head-left">
-          <h2><span class="accent-line"></span>职业薪资排行榜</h2>
-          <p>数据来源：人社部《企业薪酬调查信息（2025年）》，单位：万元 / 年。</p>
-        </div>
-      </div>
-      <div class="salary-chart-wrap">
-        <h4>SALARY MEDIAN <span class="lbl-cn">· 职业年薪中位数排行</span></h4>
-        <div class="salary-chart-canvas">
-          <canvas id="salaryChart"></canvas>
-        </div>
-      </div>
-      <div class="salary-table-wrap">
-        <table class="salary-table" id="salaryTable"></table>
-      </div>
-    </div>
-  </section>
 
   <footer class="footer">
     <div class="footer-inner">
       <div>© 2025 中国大学官网导航 · 数据来源于
-        <a href="http://www.moe.gov.cn/" target="_blank" rel="noopener">教育部</a> ·
-        <a href="https://www.mohrss.gov.cn/" target="_blank" rel="noopener">人社部</a>
+        <a href="http://www.moe.gov.cn/" target="_blank" rel="noopener">教育部</a>
       </div>
       <div>仅供学习交流 · 官网地址请以学校最新公布为准</div>
     </div>
   </footer>
-</div>
+</main>
 
 <button class="back-top" id="backTop" title="回到顶部" aria-label="回到顶部">
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
@@ -1584,9 +789,8 @@ img { max-width: 100%; display: block; }
   </svg>
 </button>
 
-<!-- 大学详情弹窗 -->
 <div class="modal-overlay" id="modalOverlay">
-  <div class="modal" id="modalBox">
+  <div class="modal">
     <button class="modal-close" id="modalClose" aria-label="关闭">✕</button>
     <div id="modalContent"></div>
   </div>
@@ -1595,668 +799,256 @@ img { max-width: 100%; display: block; }
 <script src="data.js"></script>
 <script>
 /* ============================================================
-   状态与工具
+   识别省份
    ============================================================ */
-const REGION_GROUPS = [
-  { name: "华北地区", ids: ["beijing","tianjin","hebei","shanxi","neimenggu"] },
-  { name: "东北地区", ids: ["liaoning","jilin","heilongjiang"] },
-  { name: "华东地区", ids: ["shanghai","jiangsu","zhejiang","anhui","fujian","jiangxi","shandong"] },
-  { name: "华中地区", ids: ["henan","hubei","hunan"] },
-  { name: "华南地区", ids: ["guangdong","guangxi","hainan"] },
-  { name: "西南地区", ids: ["chongqing","sichuan","guizhou","yunnan","xizang"] },
-  { name: "西北地区", ids: ["shaanxi","gansu","qinghai","ningxia","xinjiang"] },
-  { name: "港澳台地区", ids: ["xianggang","aomen","taiwan"] }
-];
-
-const MAX_RESULTS = 300;
-
-let SCHOOL_INDEX = [];
-let currentPanel = "panel-home";
-let salaryChartInstance = null;
-let detailChartInstance = null;
+const path = decodeURIComponent(location.pathname.split("/").pop() || "");
+const provinceId = path.replace(/\.html$/i, "");
+const provinceData = (typeof UNIVERSITY_DATA !== "undefined") ? UNIVERSITY_DATA[provinceId] : null;
+const provinceMeta = (typeof PROVINCES !== "undefined")
+  ? PROVINCES.find(p => p.id === provinceId)
+  : null;
 
 /* ============================================================
-   深浅模式
+   主题
    ============================================================ */
 const THEME_KEY = "cn-univ-nav-theme";
-
 function getPreferredTheme() {
   const saved = localStorage.getItem(THEME_KEY);
   if (saved === "light" || saved === "dark") return saved;
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
-
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.setAttribute("content", theme === "dark" ? "#060910" : "#ffffff");
 }
-
-function initTheme() {
-  applyTheme(getPreferredTheme());
-  document.getElementById("themeBtn").addEventListener("click", () => {
-    const cur = document.documentElement.getAttribute("data-theme");
-    const next = cur === "dark" ? "light" : "dark";
-    applyTheme(next);
-    localStorage.setItem(THEME_KEY, next);
-    // 主题切换时重绘图表以适配颜色
-    if (currentPanel === "panel-salary") renderSalary();
-    if (currentPanel === "panel-detail") {
-      const sel = document.getElementById("univSelect");
-      if (sel && sel.value) showUniversityDetail(sel.value);
-    }
-  });
-}
+applyTheme(getPreferredTheme());
+document.getElementById("themeBtn").addEventListener("click", () => {
+  const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  applyTheme(next);
+  localStorage.setItem(THEME_KEY, next);
+});
 
 /* ============================================================
    工具
    ============================================================ */
-function getProvinceById(id) {
-  return PROVINCES.find(p => p.id === id);
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, m => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[m]));
 }
+function escapeAttr(str) { return escapeHtml(str).replace(/"/g, "&quot;"); }
 
 function tagClass(tag) {
   let cls = "tag";
   if (tag.includes("专科")) cls += " t-zhuanke";
   if (tag.includes("民办")) cls += " t-minban";
   if (tag.includes("职业")) cls += " t-gaozhi";
-  if (tag.includes("强基")) cls += " t-qiangji";
-  if (tag.includes("综评")) cls += " t-zongping";
-  if (tag.includes("校企")) cls += " t-qiye";
   return cls;
 }
 
-function escapeHtml(str) {
-  return String(str).replace(/[&<>"']/g, m => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-  }[m]));
+/* 分类判定 */
+function classify(tag) {
+  if (!tag) return "本科";
+  if (tag.includes("专科")) return "专科";
+  if (tag.includes("民办")) return "民办";
+  if (tag.includes("双一流") || tag.includes("985") || tag.includes("211")) return "双一流";
+  return "本科";
 }
 
-function escapeAttr(str) {
-  return escapeHtml(str).replace(/"/g, "&quot;");
-}
-
-function buildSchoolIndex() {
-  SCHOOL_INDEX = [];
-  Object.keys(UNIVERSITY_DATA).forEach(pid => {
-    const p = UNIVERSITY_DATA[pid];
-    (p.schools || []).forEach(s => {
-      SCHOOL_INDEX.push({
-        pid: pid,
-        pname: p.name,
-        name: s[0],
-        url: s[1],
-        tag: s[2] || ""
-      });
-    });
-  });
+/* 关键词高亮 */
+function highlight(text, kw) {
+  if (!kw) return escapeHtml(text);
+  const idx = text.toLowerCase().indexOf(kw.toLowerCase());
+  if (idx < 0) return escapeHtml(text);
+  const before = text.slice(0, idx);
+  const match  = text.slice(idx, idx + kw.length);
+  const after  = text.slice(idx + kw.length);
+  return `${escapeHtml(before)}<mark>${escapeHtml(match)}</mark>${escapeHtml(after)}`;
 }
 
 /* ============================================================
-   侧边栏
+   数据准备
    ============================================================ */
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("sidebarOverlay");
-const mainEl = document.getElementById("main");
+let allSchools = [];
+let currentFilter = "全部";
+let currentKeyword = "";
 
-function toggleSidebar(force) {
-  const isOpen = sidebar.classList.contains("active");
-  const shouldOpen = force === true ? true : force === false ? false : !isOpen;
-  sidebar.classList.toggle("active", shouldOpen);
-  overlay.classList.toggle("active", shouldOpen);
-  if (window.innerWidth > 1024) {
-    mainEl.classList.toggle("shifted", shouldOpen);
-  }
-  // 打开时禁止 body 滚动（移动端）
-  if (window.innerWidth <= 1024) {
-    document.body.style.overflow = shouldOpen ? "hidden" : "";
-  }
-}
-
-document.getElementById("menuBtn").addEventListener("click", () => toggleSidebar());
-overlay.addEventListener("click", () => toggleSidebar(false));
-
-document.getElementById("sidebarNav").addEventListener("click", e => {
-  const item = e.target.closest(".nav-item");
-  if (!item) return;
-  const panelId = item.dataset.panel;
-  if (!panelId) return;
-
-  document.querySelectorAll(".sidebar-nav .nav-item").forEach(n => n.classList.remove("active"));
-  item.classList.add("active");
-
-  document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
-  const target = document.getElementById(panelId);
-  if (target) target.classList.add("active");
-
-  currentPanel = panelId;
-
-  if (panelId === "panel-subject") renderSubjects();
-  if (panelId === "panel-admission") renderAdmission();
-  if (panelId === "panel-special") renderSpecial();
-  if (panelId === "panel-other") renderOtherSites();
-  if (panelId === "panel-detail") renderDetailPanel();
-  if (panelId === "panel-salary") renderSalary();
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  if (window.innerWidth <= 1024) toggleSidebar(false);
-});
-
-/* ============================================================
-   面板 1：省份总览 + 搜索
-   ============================================================ */
-function renderProvinces() {
-  const box = document.getElementById("homeContent");
-  let html = "";
-
-  REGION_GROUPS.forEach(group => {
-    const provinces = group.ids.map(getProvinceById).filter(Boolean);
-    if (!provinces.length) return;
-    const totalCount = provinces.reduce((sum, p) => sum + (p.count || 0), 0);
-
-    html += `<section class="region-group">`;
-    html += `<div class="region-head">
-               <h3>${group.name}</h3>
-               <span class="meta">${provinces.length} 个省级行政区 · 共 ${totalCount} 所</span>
-             </div>`;
-    html += `<div class="province-grid">`;
-    provinces.forEach(p => {
-      html += `<a class="province-card" href="${p.id}.html">
-                 <div class="row1">
-                   <span class="emoji">${p.emoji}</span>
-                   <span class="arrow">→</span>
-                 </div>
-                 <div class="pname">${escapeHtml(p.name)}</div>
-                 <div class="pcount"><b>${p.count || 0}</b> 所高校</div>
-               </a>`;
-    });
-    html += `</div></section>`;
-  });
-
-  box.innerHTML = html;
-}
-
-function renderSearchResults(kw) {
-  const box = document.getElementById("homeContent");
-  const lower = kw.toLowerCase();
-
-  const matchedProvinces = PROVINCES.filter(p =>
-    p.name.toLowerCase().includes(lower) ||
-    p.fullName.toLowerCase().includes(lower)
-  );
-  const provinceIdSet = new Set(matchedProvinces.map(p => p.id));
-
-  const matchedSchools = SCHOOL_INDEX.filter(s => s.name.toLowerCase().includes(lower));
-  const extraSchools = SCHOOL_INDEX.filter(s => provinceIdSet.has(s.pid));
-
-  const allSchools = [...extraSchools];
-  matchedSchools.forEach(s => {
-    if (!allSchools.find(x => x.url === s.url)) allSchools.push(s);
-  });
-
-  if (!allSchools.length) {
-    box.innerHTML = `<div class="empty-state">
-        <span class="emoji">🔍</span>
-        未找到与「${escapeHtml(kw)}」相关的学校
-        <div class="hint">试试「大学」「师范」「职业」等关键词</div>
-      </div>`;
-    return;
-  }
-
-  let displayList = allSchools;
-  let truncated = false;
-  if (allSchools.length > MAX_RESULTS) {
-    displayList = allSchools.slice(0, MAX_RESULTS);
-    truncated = true;
-  }
-
-  const grouped = {};
-  displayList.forEach(s => {
-    if (!grouped[s.pname]) grouped[s.pname] = [];
-    grouped[s.pname].push(s);
-  });
-
-  let html = `<div class="result-bar">
-      <div>找到 <b>${allSchools.length}</b> 所相关高校${truncated ? `（仅展示前 ${MAX_RESULTS} 条）` : ""}</div>
-      <div>关键词 <span class="kw">${escapeHtml(kw)}</span></div>
-    </div>`;
-
-  Object.keys(grouped).forEach(pname => {
-    const list = grouped[pname];
-    html += `<section class="region-group">
-      <div class="region-head">
-        <h3>${escapeHtml(pname)}</h3>
-        <span class="meta">${list.length} 所</span>
+if (!provinceData) {
+  document.querySelector("main").innerHTML = `
+    <div class="empty-state" style="margin:80px auto;max-width:520px;">
+      <span class="emoji">🧭</span>
+      未找到该省份数据
+      <div class="hint">请检查 URL 是否正确，或从
+        <a href="index.html" style="color:var(--accent);">首页</a> 重新进入
       </div>
-      <div class="school-grid">`;
-    list.forEach(s => {
-      html += `<div class="school-card" data-name="${escapeAttr(s.name)}">
-        <span class="sname">${escapeHtml(s.name)}</span>
-        <div class="smeta">
-          ${s.tag ? `<span class="${tagClass(s.tag)}">${escapeHtml(s.tag)}</span>` : ""}
-          <span class="province-tag">${escapeHtml(s.pname)}</span>
-        </div>
-      </div>`;
-    });
-    html += `</div></section>`;
-  });
-
-  box.innerHTML = html;
-
-  // 事件委托
-  box.querySelectorAll(".school-card").forEach(el => {
-    el.addEventListener("click", () => openUniversityModal(el.dataset.name));
-  });
+    </div>`;
+  document.querySelector("main").style.paddingTop = "var(--header-h)";
+} else {
+  init();
 }
 
-/* ============================================================
-   面板 2：强项学科
-   ============================================================ */
-function renderSubjects() {
-  const box = document.getElementById("subjectContent");
-  const subjects = (typeof SUBJECT_CATEGORIES !== "undefined") ? SUBJECT_CATEGORIES : [];
+function init() {
+  allSchools = (provinceData.schools || []).map(s => ({
+    name: s[0], url: s[1], tag: s[2] || "",
+    category: classify(s[2] || "")
+  }));
 
-  if (!subjects.length) {
-    box.innerHTML = `<div class="empty-state">
-      <span class="emoji">📚</span>
-      暂无学科分类数据
-      <div class="hint">请在 <code>data.js</code> 中添加 <code>SUBJECT_CATEGORIES</code></div>
-    </div>`;
-    return;
+  // 页面标题
+  document.title = `${provinceData.name}高校导航 · 中国大学官网导航`;
+
+  // 顶栏
+  document.getElementById("provinceMark").textContent =
+    provinceMeta ? provinceMeta.name : provinceData.name;
+  document.getElementById("provinceTitle").innerHTML =
+    `${escapeHtml(provinceData.name)} <span class="sub">UNIVERSITY LIST</span>`;
+
+  // Hero
+  if (provinceMeta) {
+    document.getElementById("heroEmoji").textContent = provinceMeta.emoji || "🏫";
   }
+  document.getElementById("heroName").textContent = provinceData.name;
+  document.getElementById("heroDesc").textContent =
+    `共收录 ${allSchools.length} 所普通高校，点击校名即可查看详情与官网入口。`;
 
-  let html = `<div class="subject-grid">`;
-  subjects.forEach(sub => {
-    const count = (sub.schools || []).length;
-    html += `<div class="subject-card">
-      <div class="subj-head">
-        <span class="subj-emoji">${sub.icon || "📘"}</span>
-        <span class="subj-name">${escapeHtml(sub.name)}</span>
-        <span class="subj-count">${count} 所高校</span>
-      </div>
-      <div class="subj-list">`;
-    (sub.schools || []).slice(0, 12).forEach(sn => {
-      html += `<span class="pill" data-name="${escapeAttr(sn)}">${escapeHtml(sn)}</span>`;
-    });
-    if (count > 12) html += `<span class="pill more">+${count - 12}</span>`;
-    html += `</div></div>`;
-  });
-  html += `</div>`;
-  box.innerHTML = html;
-
-  box.querySelectorAll(".pill[data-name]").forEach(el => {
-    el.addEventListener("click", () => openUniversityModal(el.dataset.name));
-  });
-}
-
-/* ============================================================
-   面板 3：招生路径
-   ============================================================ */
-function renderAdmission() {
-  const box = document.getElementById("admissionContent");
-  const paths = (typeof ADMISSION_PATHS !== "undefined") ? ADMISSION_PATHS : [];
-
-  if (!paths.length) {
-    box.innerHTML = `<div class="empty-state">
-      <span class="emoji">📋</span>
-      暂无招生路径数据
-      <div class="hint">请在 <code>data.js</code> 中添加 <code>ADMISSION_PATHS</code></div>
-    </div>`;
-    return;
-  }
-
-  let html = "";
-  paths.forEach(path => {
-    const schools = path.schools || [];
-    html += `<section class="path-block">
-      <div class="path-head">
-        <span class="path-icon">${path.icon || "📋"}</span>
-        <div style="flex:1;min-width:0;">
-          <div class="path-name">${escapeHtml(path.name)}</div>
-          ${path.desc ? `<div class="path-desc">${escapeHtml(path.desc)}</div>` : ""}
-        </div>
-        <span class="path-count">${schools.length} 所高校</span>
-      </div>`;
-    if (schools.length) {
-      html += `<div class="school-grid">`;
-      schools.forEach(s => {
-        const name = Array.isArray(s) ? s[0] : s;
-        const tag  = Array.isArray(s) ? (s[2] || "") : "";
-        html += `<div class="school-card" data-name="${escapeAttr(name)}">
-          <span class="sname">${escapeHtml(name)}</span>
-          ${tag ? `<div class="smeta"><span class="${tagClass(tag)}">${escapeHtml(tag)}</span></div>` : ""}
-        </div>`;
-      });
-      html += `</div>`;
-    } else {
-      html += `<div class="empty-state" style="padding:32px;">
-        暂无在内蒙古投放计划的院校名单
-        <div class="hint">请以当年招生计划为准</div>
-      </div>`;
-    }
-    html += `</section>`;
-  });
-  box.innerHTML = html;
-
-  box.querySelectorAll(".school-card").forEach(el => {
-    el.addEventListener("click", () => openUniversityModal(el.dataset.name));
-  });
-}
-
-/* ============================================================
-   面板 4：校企对接
-   ============================================================ */
-function renderSpecial() {
-  const box = document.getElementById("specialContent");
-  const items = (typeof SPECIAL_PROGRAMS !== "undefined") ? SPECIAL_PROGRAMS : [];
-
-  if (!items.length) {
-    box.innerHTML = `<div class="empty-state">
-      <span class="emoji">🏢</span>
-      暂无校企对接数据
-      <div class="hint">请在 <code>data.js</code> 中添加 <code>SPECIAL_PROGRAMS</code></div>
-    </div>`;
-    return;
-  }
-
-  let html = `<div class="program-grid">`;
-  items.forEach(item => {
-    html += `<div class="program-card">
-      <div class="pc-title">${escapeHtml(item.name)}</div>
-      <div class="pc-row">
-        <span class="lbl">合作高校</span>
-        <span class="val link" data-name="${escapeAttr(item.university)}">${escapeHtml(item.university)}</span>
-      </div>
-      <div class="pc-row">
-        <span class="lbl">合作企业</span>
-        <span class="val">${escapeHtml(item.partner || "—")}</span>
-      </div>
-      ${item.desc ? `<div class="pc-desc">${escapeHtml(item.desc)}</div>` : ""}
-    </div>`;
-  });
-  html += `</div>`;
-  box.innerHTML = html;
-
-  box.querySelectorAll(".val.link[data-name]").forEach(el => {
-    el.addEventListener("click", () => openUniversityModal(el.dataset.name));
-  });
-}
-
-/* ============================================================
-   面板 5：其它网站
-   ============================================================ */
-function renderOtherSites() {
-  const box = document.getElementById("otherContent");
-  const sites = (typeof OTHER_SITES !== "undefined") ? OTHER_SITES : [];
-
-  if (!sites.length) {
-    box.innerHTML = `<div class="empty-state">
-      <span class="emoji">🔗</span>
-      暂无收藏网站
-      <div class="hint">在 <code>data.js</code> 的 <code>OTHER_SITES</code> 中添加即可自动渲染</div>
-    </div>`;
-    return;
-  }
-
-  let html = `<div class="school-grid">`;
-  sites.forEach(s => {
-    const name = s[0], url = s[1], icon = s[2] || "🔗", desc = s[3] || "";
-    html += `<a class="school-card" href="${escapeAttr(url)}" target="_blank" rel="noopener">
-      <span class="sname">${escapeHtml(icon)} ${escapeHtml(name)}</span>
-      ${desc ? `<div class="smeta"><span style="font-size:11.5px;color:var(--text-dim);">${escapeHtml(desc)}</span></div>` : ""}
-    </a>`;
-  });
-  html += `</div>`;
-  box.innerHTML = html;
-}
-
-/* ============================================================
-   面板 6：大学录取数据
-   ============================================================ */
-function renderDetailPanel() {
-  const sel = document.getElementById("univSelect");
-  if (sel.options.length > 1) return;
-
-  const all = SCHOOL_INDEX.slice().sort((a, b) => a.name.localeCompare(b.name, "zh"));
-  all.forEach(s => {
-    const opt = document.createElement("option");
-    opt.value = s.name;
-    opt.textContent = `${s.name} · ${s.pname}`;
-    sel.appendChild(opt);
-  });
-
-  sel.addEventListener("change", () => {
-    if (sel.value) showUniversityDetail(sel.value);
-  });
-}
-
-function getChartColors() {
-  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-  return {
-    text:    isDark ? "#97a3b4" : "#5b6470",
-    grid:    isDark ? "#232b38" : "#dfe3e8",
-    accent:  isDark ? "#4f8cf7" : "#1d4ed8",
-    accentA: isDark ? "rgba(79,140,247,.15)" : "rgba(29,78,216,.1)",
-    warn:    isDark ? "#fb923c" : "#ea580c",
-    bg:      isDark ? "#12161f" : "#ffffff"
+  // 统计
+  const stats = {
+    "全部":   allSchools.length,
+    "双一流": allSchools.filter(s => s.category === "双一流").length,
+    "本科":   allSchools.filter(s => s.category === "本科").length,
+    "专科":   allSchools.filter(s => s.category === "专科").length,
+    "民办":   allSchools.filter(s => s.category === "民办").length
   };
-}
+  document.getElementById("heroStats").innerHTML = `
+    <div class="province-stat">
+      <div class="num">${stats["双一流"]}</div>
+      <div class="lbl">双一流</div>
+    </div>
+    <div class="province-stat">
+      <div class="num">${stats["本科"]}</div>
+      <div class="lbl">本科</div>
+    </div>
+    <div class="province-stat">
+      <div class="num">${stats["专科"]}</div>
+      <div class="lbl">专科</div>
+    </div>
+  `;
 
-function showUniversityDetail(name) {
-  const box = document.getElementById("detailContent");
-  const info = SCHOOL_INDEX.find(s => s.name === name);
-  const scoreData = (typeof SCORE_HISTORY !== "undefined") ? SCORE_HISTORY[name] : null;
+  // 筛选 chips
+  const chips = document.getElementById("chips");
+  const filters = ["全部", "双一流", "本科", "专科", "民办"];
+  chips.innerHTML = filters.map(f => {
+    const cnt = stats[f] || 0;
+    const isActive = f === "全部" ? "active" : "";
+    return `<button class="chip ${isActive}" data-filter="${f}">
+      ${f}<span class="cnt">${cnt}</span>
+    </button>`;
+  }).join("");
 
-  if (!info) {
-    box.innerHTML = `<div class="empty-state">未找到该学校信息</div>`;
-    return;
-  }
+  chips.addEventListener("click", e => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    currentFilter = chip.dataset.filter;
+    chips.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    renderList();
+  });
 
-  let html = `<div class="detail-card">
-    <div class="detail-head">
-      <div>
-        <h3>${escapeHtml(name)}</h3>
-        <div class="sub">
-          <span>${escapeHtml(info.pname)}</span>
-          ${info.tag ? `<span class="dot"></span><span class="${tagClass(info.tag)}">${escapeHtml(info.tag)}</span>` : ""}
-        </div>
-      </div>
-    </div>`;
-
-  if (!scoreData) {
-    html += `<div class="empty-state">
-      <span class="emoji">📊</span>
-      暂无 <b>${escapeHtml(name)}</b> 的录取数据
-      <div class="hint">在 <code>data.js</code> 的 <code>SCORE_HISTORY</code> 中添加即可展示</div>
-    </div>`;
-  } else {
-    html += `<div class="chart-wrap"><canvas id="detailChart"></canvas></div>`;
-  }
-
-  html += `</div>`;
-  box.innerHTML = html;
-
-  if (scoreData) {
-    const c = getChartColors();
-    const ctx = document.getElementById("detailChart").getContext("2d");
-    if (detailChartInstance) detailChartInstance.destroy();
-
-    const datasets = [{
-      label: "最低录取分",
-      data: scoreData.minScores || [],
-      borderColor: c.accent,
-      backgroundColor: c.accentA,
-      fill: true,
-      tension: .35,
-      borderWidth: 2,
-      pointRadius: 3,
-      pointBackgroundColor: c.accent,
-      yAxisID: "y"
-    }];
-    if (scoreData.enrollment) {
-      datasets.push({
-        label: "招生人数",
-        data: scoreData.enrollment,
-        borderColor: c.warn,
-        backgroundColor: "transparent",
-        borderDash: [6, 4],
-        tension: .35,
-        borderWidth: 2,
-        pointRadius: 3,
-        pointBackgroundColor: c.warn,
-        yAxisID: "y1"
-      });
+  // 搜索
+  const kw = document.getElementById("kw");
+  document.getElementById("searchBtn").addEventListener("click", () => {
+    currentKeyword = kw.value.trim();
+    renderList();
+  });
+  kw.addEventListener("keyup", e => {
+    if (e.key === "Enter") {
+      currentKeyword = kw.value.trim();
+      renderList();
     }
+  });
+  let timer = null;
+  kw.addEventListener("input", () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      currentKeyword = kw.value.trim();
+      renderList();
+    }, 260);
+  });
 
-    detailChartInstance = new Chart(ctx, {
-      type: "line",
-      data: { labels: scoreData.years || [], datasets },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        interaction: { mode: "index", intersect: false },
-        plugins: {
-          legend: {
-            position: "bottom",
-            labels: {
-              color: c.text,
-              font: { size: 12 },
-              boxWidth: 12,
-              boxHeight: 2,
-              padding: 16,
-              usePointStyle: false
-            }
-          },
-          tooltip: {
-            backgroundColor: c.bg,
-            titleColor: c.text,
-            bodyColor: c.text,
-            borderColor: c.grid,
-            borderWidth: 1,
-            padding: 10,
-            displayColors: true,
-            cornerRadius: 0
-          }
-        },
-        scales: {
-          x: {
-            ticks: { color: c.text, font: { size: 12 } },
-            grid: { color: c.grid, drawTicks: false },
-            border: { color: c.grid }
-          },
-          y: {
-            position: "left",
-            title: { display: true, text: "分数", color: c.text, font: { size: 12 } },
-            ticks: { color: c.text, font: { size: 12 } },
-            grid: { color: c.grid, drawTicks: false },
-            border: { color: c.grid }
-          },
-          y1: {
-            position: "right",
-            title: { display: true, text: "招生人数", color: c.text, font: { size: 12 } },
-            ticks: { color: c.text, font: { size: 12 } },
-            grid: { drawOnChartArea: false },
-            border: { color: c.grid }
-          }
-        }
-      }
-    });
-  }
+  renderList();
 }
 
 /* ============================================================
-   面板 7：薪资
+   渲染列表
    ============================================================ */
-function renderSalary() {
-  const data = (typeof SALARY_DATA !== "undefined") ? SALARY_DATA : [];
-  if (!data.length) return;
+function renderList() {
+  const listBox  = document.getElementById("schoolList");
+  const infoBox  = document.getElementById("resultInfo");
+  const emptyBox = document.getElementById("emptyBox");
 
-  const c = getChartColors();
-
-  // 表格
-  const table = document.getElementById("salaryTable");
-  let html = `<thead><tr>
-    <th style="width:60px;">排名</th>
-    <th>职业类别</th>
-    <th style="text-align:right;">中位数</th>
-    <th style="text-align:right;">75 分位</th>
-    <th style="text-align:right;">90 分位</th>
-  </tr></thead><tbody>`;
-
-  data.forEach((d, i) => {
-    const rankCls = i === 0 ? "top1" : i === 1 ? "top2" : i === 2 ? "top3" : "";
-    html += `<tr>
-      <td><span class="rank ${rankCls}">${i + 1}</span></td>
-      <td style="font-weight:600;letter-spacing:.2px;">${escapeHtml(d.name)}</td>
-      <td class="num-col" style="text-align:right;">
-        <span class="salary-val accent">${d.median.toFixed(2)}</span>
-        <small style="color:var(--text-dim);font-size:11px;margin-left:3px;">万</small>
-      </td>
-      <td class="num-col" style="text-align:right;color:var(--text-mute);">${d.p75.toFixed(2)}</td>
-      <td class="num-col" style="text-align:right;color:var(--text-mute);">${d.p90.toFixed(2)}</td>
-    </tr>`;
-  });
-  html += `</tbody>`;
-  table.innerHTML = html;
-
-  // 图表
-  const ctx = document.getElementById("salaryChart").getContext("2d");
-  if (salaryChartInstance) salaryChartInstance.destroy();
-
-  const labels = data.map(d => d.name.length > 14 ? d.name.slice(0, 14) + "…" : d.name);
-  const values = data.map(d => d.median);
-  const colors = data.map((_, i) => {
-    if (i === 0) return "#d97706";
-    if (i === 1) return "#64748b";
-    if (i === 2) return "#b45309";
-    return c.accent;
-  });
-
-  salaryChartInstance = new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels,
-      datasets: [{
-        label: "年薪中位数（万元）",
-        data: values,
-        backgroundColor: colors,
-        borderWidth: 0,
-        barPercentage: 0.7
-      }]
-    },
-    options: {
-      indexAxis: "y",
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: c.bg,
-          titleColor: c.text,
-          bodyColor: c.text,
-          borderColor: c.grid,
-          borderWidth: 1,
-          padding: 10,
-          cornerRadius: 0,
-          callbacks: {
-            label: ctx => ` ${ctx.parsed.x} 万元 / 年`
-          }
-        }
-      },
-      scales: {
-        x: {
-          ticks: { color: c.text, font: { size: 12 } },
-          grid: { color: c.grid, drawTicks: false },
-          border: { color: c.grid },
-          title: { display: true, text: "万元 / 年", color: c.text, font: { size: 12 } }
-        },
-        y: {
-          ticks: { color: c.text, font: { size: 12 } },
-          grid: { display: false },
-          border: { color: c.grid }
-        }
-      }
+  let list = allSchools;
+  if (currentFilter !== "全部") {
+    if (currentFilter === "民办") {
+      list = list.filter(s => s.tag.includes("民办"));
+    } else {
+      list = list.filter(s => s.category === currentFilter);
     }
+  }
+  if (currentKeyword) {
+    const kw = currentKeyword.toLowerCase();
+    list = list.filter(s => s.name.toLowerCase().includes(kw));
+  }
+
+  // 结果信息
+  if (currentFilter !== "全部" || currentKeyword) {
+    infoBox.style.display = "";
+    const parts = [];
+    if (currentFilter !== "全部") parts.push(`分类「${currentFilter}」`);
+    if (currentKeyword) parts.push(`关键词「${escapeHtml(currentKeyword)}」`);
+    infoBox.innerHTML = `
+      <div>筛选条件 ${parts.join(" · ")} · 命中 <b>${list.length}</b> 所</div>
+      <div class="right">共 ${allSchools.length} 所</div>
+    `;
+  } else {
+    infoBox.style.display = "none";
+  }
+
+  // 空状态
+  if (!list.length) {
+    listBox.innerHTML = "";
+    emptyBox.style.display = "";
+    emptyBox.innerHTML = `
+      <div class="empty-state">
+        <span class="emoji">🔍</span>
+        未找到匹配的学校
+        <div class="hint">试试清除筛选条件或换个关键词</div>
+      </div>`;
+    return;
+  }
+  emptyBox.style.display = "none";
+
+  // 渲染
+  listBox.innerHTML = list.map(s => `
+    <div class="school-card" tabindex="0" role="button"
+         data-name="${escapeAttr(s.name)}"
+         aria-label="查看 ${escapeAttr(s.name)} 详情">
+      <span class="sname">${highlight(s.name, currentKeyword)}</span>
+      <div class="smeta">
+        ${s.tag ? `<span class="${tagClass(s.tag)}">${escapeHtml(s.tag)}</span>` : ""}
+      </div>
+    </div>
+  `).join("");
+
+  // 事件绑定
+  listBox.querySelectorAll(".school-card").forEach(card => {
+    const open = () => openUniversityModal(card.dataset.name);
+    card.addEventListener("click", open);
+    card.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        open();
+      }
+    });
   });
 }
 
@@ -2267,13 +1059,13 @@ const modalOverlay = document.getElementById("modalOverlay");
 const modalContent = document.getElementById("modalContent");
 
 function openUniversityModal(name) {
-  const info = SCHOOL_INDEX.find(s => s.name === name);
+  const info = allSchools.find(s => s.name === name);
   if (!info) return;
 
   const scoreData = (typeof SCORE_HISTORY !== "undefined") ? SCORE_HISTORY[name] : null;
 
   let html = `<h3>${escapeHtml(name)}</h3>
-    <div class="modal-sub">${escapeHtml(info.pname)}</div>
+    <div class="modal-sub">${escapeHtml(provinceData.name)}</div>
     <div class="modal-tags">
       ${info.tag ? `<span class="${tagClass(info.tag)}">${escapeHtml(info.tag)}</span>` : ""}
     </div>
@@ -2281,17 +1073,17 @@ function openUniversityModal(name) {
       <a class="btn btn-primary" href="${escapeAttr(info.url)}" target="_blank" rel="noopener">
         🌐 访问官网
       </a>
-      <button class="btn btn-ghost" id="gotoDetailBtn">
+      <a class="btn btn-ghost" href="index.html#panel-detail">
         📈 查看录取数据
-      </button>
+      </a>
     </div>`;
 
-  if (scoreData && scoreData.years && scoreData.minScores) {
+  if (scoreData && scoreData.years) {
     html += `<div class="modal-data">
-      <div class="lbl">Recent Admission Data · 近年录取数据</div>
+      <div class="lbl">Recent Admission · 近年录取</div>
       <div class="modal-data-list">`;
     scoreData.years.forEach((y, i) => {
-      const score = scoreData.minScores[i];
+      const score = scoreData.minScores ? scoreData.minScores[i] : null;
       const enroll = scoreData.enrollment ? scoreData.enrollment[i] : null;
       html += `<div class="modal-data-item">
         <div class="year">${y} 年</div>
@@ -2306,7 +1098,7 @@ function openUniversityModal(name) {
     html += `<div class="modal-data">
       <div class="lbl">Admission Data · 录取数据</div>
       <div style="font-size:13px;color:var(--text-dim);padding:8px 0;">
-        暂无录取数据，可在「大学录取数据」板块补充。
+        暂无录取数据，可前往首页「大学录取数据」板块查看。
       </div>
     </div>`;
   }
@@ -2314,56 +1106,18 @@ function openUniversityModal(name) {
   modalContent.innerHTML = html;
   modalOverlay.classList.add("active");
   document.body.style.overflow = "hidden";
-
-  const btn = document.getElementById("gotoDetailBtn");
-  if (btn) {
-    btn.addEventListener("click", () => {
-      closeModal();
-      // 切换到详情面板
-      const navItem = document.querySelector('[data-panel="panel-detail"]');
-      if (navItem) navItem.click();
-      setTimeout(() => {
-        const sel = document.getElementById("univSelect");
-        if (sel) {
-          sel.value = name;
-          showUniversityDetail(name);
-        }
-      }, 180);
-    });
-  }
 }
 
 function closeModal() {
   modalOverlay.classList.remove("active");
   document.body.style.overflow = "";
 }
-
 document.getElementById("modalClose").addEventListener("click", closeModal);
 modalOverlay.addEventListener("click", e => {
   if (e.target === modalOverlay) closeModal();
 });
 document.addEventListener("keydown", e => {
   if (e.key === "Escape" && modalOverlay.classList.contains("active")) closeModal();
-});
-
-/* ============================================================
-   搜索
-   ============================================================ */
-function doSearch() {
-  const kw = document.getElementById("kw").value.trim();
-  if (!kw) { renderProvinces(); return; }
-  renderSearchResults(kw);
-}
-
-document.getElementById("searchBtn").addEventListener("click", doSearch);
-document.getElementById("kw").addEventListener("keyup", e => {
-  if (e.key === "Enter") doSearch();
-});
-
-let searchTimer = null;
-document.getElementById("kw").addEventListener("input", () => {
-  clearTimeout(searchTimer);
-  searchTimer = setTimeout(doSearch, 280);
 });
 
 /* ============================================================
@@ -2376,29 +1130,6 @@ window.addEventListener("scroll", () => {
 backTop.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
-
-/* ============================================================
-   窗口尺寸变化
-   ============================================================ */
-window.addEventListener("resize", () => {
-  if (window.innerWidth <= 1024) {
-    mainEl.classList.remove("shifted");
-    if (!sidebar.classList.contains("active")) {
-      document.body.style.overflow = "";
-    }
-  } else if (sidebar.classList.contains("active")) {
-    mainEl.classList.add("shifted");
-    document.body.style.overflow = "";
-  }
-});
-
-/* ============================================================
-   初始化
-   ============================================================ */
-initTheme();
-buildSchoolIndex();
-renderProvinces();
-renderDetailPanel();
 </script>
 </body>
 </html>
